@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 int main(int argc, char *argv[]) {
-  puts("Hello, world!");
+  puts("Creating assertion");
 
   IOPMAssertionID assertion_id;
 
@@ -35,11 +35,18 @@ int main(int argc, char *argv[]) {
         /*AssertionLevel=*/kIOPMAssertionLevelOff, name, &assertion_id);
   }
 
-  sleep(30 /*seconds*/);
-
   if (result != kIOReturnSuccess) {
     fputs("Failed to create power assertion", stderr);
+    return EXIT_FAILURE;
   }
 
-  return 0;
+  puts("Assertion created successfully");
+
+  puts("Sleeping");
+
+  sleep(30 /*seconds*/);
+
+  puts("Exiting");
+
+  return EXIT_SUCCESS;
 }
