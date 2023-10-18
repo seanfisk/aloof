@@ -1,3 +1,0 @@
-#!/bin/bash
-
-cc unattend.c -o unattend

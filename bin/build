@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o xtrace
+
+rm -rf target
+mkdir target
+cd target
+cc ../unattend.c -o unattend
