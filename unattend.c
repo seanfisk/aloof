@@ -1,7 +1,6 @@
 #include <stdio.h>
-
+#include <unistd.h>
 #include <IOKit/pwr_mgt/IOPMLib.h>
-/* #include <IOKit/pwr_mgt/IOPMLibPrivate.h> */
 
 int main(int argc, char *argv[]) {
   puts("Hello, world!");
@@ -19,6 +18,8 @@ int main(int argc, char *argv[]) {
       // I think this differs from kIOPMAssertionTimeoutActionTurnOff in that
       // the assertion is deleted, not just made inactive
       /*TimeoutAction=*/kIOPMAssertionTimeoutActionRelease, &assertionID);
+
+  sleep(30 /*seconds*/);
 
   if (result != kIOReturnSuccess) {
     fputs("Failed to create power assertion", stderr);
