@@ -17,21 +17,23 @@ int main(int argc, char *argv[]) {
   const CFStringRef name = CFSTR("unattend command-line tool");
 
   IOReturn result;
-  /* result = IOPMAssertionCreateWithDescription( */
-  /*     assertion_type, name, */
-  /*     /\*Details=*\/CFSTR("test assertion"), */
-  /*     /\*HumanReadableReason=*\/ */
-  /*     CFSTR("Run time-consuming operation in background"), */
-  /*     /\*LocalizationBundlePath=*\/NULL, */
-  /*     /\*Timeout=*\/0, */
+  if (false) {
+    result = IOPMAssertionCreateWithDescription(
+        assertion_type, name,
+        /*Details=*/CFSTR("test assertion"),
+        /*HumanReadableReason=*/
+        CFSTR("Run time-consuming operation in background"),
+        /*LocalizationBundlePath=*/NULL,
+        /*Timeout=*/0,
 
-  /*     // I think this differs from kIOPMAssertionTimeoutActionTurnOff in that */
-  /*     // the assertion is deleted, not just made inactive */
-  /*     /\*TimeoutAction=*\/kIOPMAssertionTimeoutActionRelease, &assertion_id); */
-
-  result = IOPMAssertionCreateWithName(
-      assertion_type,
-      /*AssertionLevel=*/kIOPMAssertionLevelOff, name & assertion_id);
+        // I think this differs from kIOPMAssertionTimeoutActionTurnOff in that
+        // the assertion is deleted, not just made inactive
+        /*TimeoutAction=*/kIOPMAssertionTimeoutActionRelease, &assertion_id);
+  } else {
+    result = IOPMAssertionCreateWithName(
+        assertion_type,
+        /*AssertionLevel=*/kIOPMAssertionLevelOff, name, &assertion_id);
+  }
 
   sleep(30 /*seconds*/);
 
