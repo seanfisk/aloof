@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int main(int argc, char *argv[]) {
+void create_assertion() {
   puts("Creating assertion");
 
   IOPMAssertionID assertion_id;
@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 
   const CFStringRef assertion_type =
       kIOPMAssertionTypePreventUserIdleSystemSleep;
-  /* const CFStringRef assertion_type = kIOPMAssertionTypeNoIdleSleep; */
+  // const CFStringRef assertion_type = kIOPMAssertionTypeNoIdleSleep;
 
   // Note: Limited to 128 characters
   const CFStringRef name = CFSTR("unattend command-line tool");
@@ -40,16 +40,23 @@ int main(int argc, char *argv[]) {
 
   if (result != kIOReturnSuccess) {
     fputs("Failed to create power assertion", stderr);
-    return EXIT_FAILURE;
+    exit(EXIT_FAILURE);
   }
 
   puts("Assertion created successfully");
+}
 
-  puts("Sleeping");
+int main(int argc, char *argv[]) {
+  create_assertion();
 
-  sleep(10 /*seconds*/);
+  // puts("Sleeping");
+  // sleep(10 /*seconds*/);
 
-  puts("Exiting");
+  puts("Replacing process");
+  const char *prog = "/bin/bash";
+  execl(prog, prog, "-c", "sleep 10");
+  perror("unattend");
+  return EXIT_FAILURE;
 
-  return EXIT_SUCCESS;
+  // Assertion will be released automatically when the process exits. Look for ClientDied in `pmset -g assertionslog`.
 }
