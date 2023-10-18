@@ -17,8 +17,10 @@ int main(int argc, char *argv[]) {
   // Note: Limited to 128 characters
   const CFStringRef name = CFSTR("unattend command-line tool");
 
+  // Both of these calls work, but IOPMAssertionCreateWithDescription is a bit
+  // nicer as it provides a better message in `pmset -g assertions'.
   IOReturn result;
-  if (false) {
+  if (true) {
     result = IOPMAssertionCreateWithDescription(
         assertion_type, name,
         /*Details=*/CFSTR("test assertion"),
