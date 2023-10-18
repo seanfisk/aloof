@@ -12,12 +12,13 @@ int main(int argc, char *argv[]) {
 
   const CFStringRef assertion_type =
       kIOPMAssertionTypePreventUserIdleSystemSleep;
+  /* const CFStringRef assertion_type = kIOPMAssertionTypeNoIdleSleep; */
 
   // Note: Limited to 128 characters
   const CFStringRef name = CFSTR("unattend command-line tool");
 
   IOReturn result;
-  if (false) {
+  if (true) {
     result = IOPMAssertionCreateWithDescription(
         assertion_type, name,
         /*Details=*/CFSTR("test assertion"),
