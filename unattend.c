@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
   const CFStringRef name = CFSTR("unattend command-line tool");
 
   IOReturn result;
-  if (true) {
+  if (false) {
     result = IOPMAssertionCreateWithDescription(
         assertion_type, name,
         /*Details=*/CFSTR("test assertion"),
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
   } else {
     result = IOPMAssertionCreateWithName(
         assertion_type,
-        /*AssertionLevel=*/kIOPMAssertionLevelOff, name, &assertion_id);
+        /*AssertionLevel=*/kIOPMAssertionLevelOn, name, &assertion_id);
   }
 
   if (result != kIOReturnSuccess) {
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
 
   puts("Sleeping");
 
-  sleep(30 /*seconds*/);
+  sleep(10 /*seconds*/);
 
   puts("Exiting");
 
